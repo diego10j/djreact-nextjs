@@ -7,6 +7,7 @@ import { Box, AppBar, Hidden, Toolbar, IconButton } from "@material-ui/core";
 //
 import AccountPopover from "./AccountPopover";
 import NotificationsPopover from "./NotificationsPopover";
+import Settings from "../../components/settings";
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
@@ -62,7 +63,7 @@ export default function DashboardNavbar({ onOpenSidebar }) {
             },
           }}
         >
-
+          <Settings />
           <NotificationsPopover />
           <AccountPopover />
         </Box>

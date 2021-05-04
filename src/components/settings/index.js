@@ -1,12 +1,12 @@
 import { Icon } from '@iconify/react';
-import { useState } from 'react';
+import { useState, useRef} from 'react';
 import closeFill from '@iconify/icons-eva/close-fill';
+import optionsOutline from '@iconify/icons-eva/options-outline';
 // material
-import { Box, Drawer, Tooltip, Divider, Typography } from '@material-ui/core';
+import { Box, Drawer,  Divider, Typography, Tooltip } from '@material-ui/core';
 //
-import { MIconButton, MFab } from '../@material-extend';
+import { MIconButton } from '../@material-extend';
 import SettingMode from './SettingMode';
-import SvgIconStyle from '../SvgIconStyle';
 import SettingDirection from './SettingDirection';
 
 // ----------------------------------------------------------------------
@@ -14,6 +14,7 @@ import SettingDirection from './SettingDirection';
 const DRAWER_WIDTH = 260;
 
 export default function Settings() {
+  const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
 
   const handleOpenSettings = () => {
@@ -26,32 +27,16 @@ export default function Settings() {
 
   return (
     <>
-      <Box
-        sx={{
-          position: 'fixed',
-          bottom: { xs: 16, sm: 24, md: 32 },
-          right: { xs: 16, sm: 24, md: 32 },
-          zIndex: 999
-        }}
+      <Tooltip  title="Configurar Tema">
+      <MIconButton
+        ref={anchorRef}
+        onClick={handleOpenSettings}
+        color={open ? "primary" : "default"}
       >
-        <Tooltip title="Settings">
-          <MFab
-            color="warning"
-            size="medium"
-            onClick={handleOpenSettings}
-            sx={{
-              color: (theme) => theme.palette.warning.contrastText,
-              background: (theme) => theme.palette.gradients.warning
-            }}
-          >
-            <SvgIconStyle
-              src="/static/icons/controls/settings.svg"
-              sx={{ width: 16, height: 16 }}
-            />
-          </MFab>
-        </Tooltip>
-      </Box>
+          <Icon icon={optionsOutline} width={20} height={20} />
 
+      </MIconButton>
+      </Tooltip>
       <Drawer
         open={open}
         anchor="right"
@@ -71,7 +56,7 @@ export default function Settings() {
             justifyContent: 'space-between'
           }}
         >
-          <Typography variant="subtitle1">Settings</Typography>
+          <Typography variant="subtitle1">Tema</Typography>
           <MIconButton onClick={handleCloseSettings}>
             <Icon icon={closeFill} width={20} height={20} />
           </MIconButton>
@@ -80,14 +65,14 @@ export default function Settings() {
 
         <Box sx={{ pt: 3, px: 3 }}>
           <Typography variant="subtitle2" sx={{ mb: 1.5 }}>
-            Mode
+            Modo
           </Typography>
           <SettingMode />
 
           <Box sx={{ my: 3 }} />
 
           <Typography variant="subtitle2" sx={{ mb: 1.5 }}>
-            Direction
+            Dirección
           </Typography>
           <SettingDirection />
         </Box>

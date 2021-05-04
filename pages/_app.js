@@ -23,7 +23,9 @@ import ThemeConfig from "src/theme";
 // components
 import LoadingScreen from "src/components/LoadingScreen";
 import RtlLayout from "src/components/RtlLayout";
-import Settings from "src/components/settings";
+import NotistackProvider from 'src/components/NotistackProvider';
+// Using for Auth (Check doc https://minimals.cc/docs/authentication)
+import JwtProvider from 'src/components/authentication/JwtProvider';
 
 NProgress.configure({ showSpinner: false });
 
@@ -48,16 +50,20 @@ export default function MyApp({ Component, pageProps }) {
         <PersistGate loading={<LoadingScreen />} persistor={persistor}>
           <ThemeConfig>
             <RtlLayout>
-              <Settings />
               <>
+
                 <Head>
                   <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1, shrink-to-fit=no"
                   />
                 </Head>
-                <CssBaseline />
-                <Component {...pageProps} />
+                <NotistackProvider>
+                  <CssBaseline />
+                  <JwtProvider>
+                    <Component {...pageProps} />
+                  </JwtProvider>
+                </NotistackProvider>
               </>
             </RtlLayout>
           </ThemeConfig>
