@@ -1,23 +1,22 @@
 
+import Link from 'next/link';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
 import {
   Box,
   Card,
+  Link as MLink,
   Hidden,
-  Tooltip,
   Container,
   Typography
 } from '@material-ui/core';
-import  Link  from 'next/link';
-// routes
-import { PATH_AUTH } from 'src/routes/paths';
 // hooks
 import useAuth from 'src/hooks/useAuth';
-// components
+// routes
+import { PATH_AUTH } from 'src/routes/paths';
 import Page from 'src/components/Page';
 import Logo from 'src/components/Logo';
-import { LoginForm } from 'src/components/authentication/login';
+import { RegisterForm } from 'src/components/authentication/register';
 import AuthWithSocial from 'src/components/authentication/AuthWithSocial';
 
 // ----------------------------------------------------------------------
@@ -65,31 +64,26 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function Login() {
+export default function Register() {
   const { method } = useAuth();
 
   return (
-    <RootStyle title="Login | Minimal-UI">
+    <RootStyle title="Register | Minimal-UI">
       <HeaderStyle>
 
-        <Link href="/">
+      <Link href="/">
           <Logo />
         </Link>
 
         <Hidden smDown>
-          <Typography
-            variant="body2"
-            sx={{
-              mt: { md: -2 }
-            }}
-          >
-            ¿No tienes cuenta? &nbsp;
+          <Typography variant="body2" sx={{ mt: { md: -2 } }}>
+            Already have an account? &nbsp;
             <Link
               underline="none"
               variant="subtitle2"
-              href={PATH_AUTH.register}
+              href={PATH_AUTH.login}
             >
-              Registrarse
+              Login
             </Link>
           </Typography>
         </Hidden>
@@ -97,46 +91,61 @@ export default function Login() {
 
       <Hidden mdDown>
         <SectionStyle>
-          <Typography variant="h3" sx={{ px: 5, mt: 15, mb: 15 }}>
-            Bienvenido al sistema
+          <Typography variant="h3" sx={{ px: 5, mt: 5, mb: 15 }}>
+            Manage the job more effectively with Minimal
           </Typography>
-          <img src="/static/illustrations/illustration_login.svg" alt="login" />
+          <img
+            alt="register"
+            src="/static/illustrations/illustration_register.svg"
+          />
         </SectionStyle>
       </Hidden>
 
-      <Container maxWidth="sm">
+      <Container>
         <ContentStyle>
           <Box sx={{ mb: 5, display: 'flex', alignItems: 'center' }}>
             <Box sx={{ flexGrow: 1 }}>
               <Typography variant="h4" gutterBottom>
-                Iniciar Sesión
+                Get started absolutely free.
               </Typography>
               <Typography sx={{ color: 'text.secondary' }}>
-                Ingresa tus datos a continuación.
+                Free forever. No credit card needed.
               </Typography>
             </Box>
-            <Tooltip title={method === 'firebase' ? 'Firebase' : 'JWT'}>
-              <Box
-                component="img"
-                src={`/static/icons/${method === 'firebase' ? 'ic_firebase' : 'ic_jwt'
-                  }.png`}
-                sx={{ width: 32, height: 32 }}
-              />
-            </Tooltip>
+            <Box
+              component="img"
+              src={`/static/icons/${
+                method === 'firebase' ? 'ic_firebase' : 'ic_jwt'
+              }.png`}
+              sx={{ width: 32, height: 32 }}
+            />
           </Box>
 
           {method === 'firebase' && <AuthWithSocial />}
 
-          <LoginForm />
+          <RegisterForm />
+
+          <Typography
+            variant="body2"
+            align="center"
+            sx={{ color: 'text.secondary', mt: 3 }}
+          >
+            By registering, I agree to Minimal&nbsp;
+            <MLink underline="always" sx={{ color: 'text.primary' }}>
+              Terms of Service
+            </MLink>
+            &nbsp;and&nbsp;
+            <MLink underline="always" sx={{ color: 'text.primary' }}>
+              Privacy Policy
+            </MLink>
+            .
+          </Typography>
 
           <Hidden smUp>
-            <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-              ¿No tienes cuenta?&nbsp;
-              <Link
-                variant="subtitle2"
-                href={PATH_AUTH.register}
-              >
-                Registrarse
+            <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
+              Already have an account?&nbsp;
+              <Link href={PATH_AUTH.login}>
+                Login
               </Link>
             </Typography>
           </Hidden>

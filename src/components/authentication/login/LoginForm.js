@@ -6,10 +6,10 @@ import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import closeFill from '@iconify/icons-eva/close-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
+import  Link  from 'next/link';
 // material
 import {
   Box,
-  Link,
   Checkbox,
   TextField,
   IconButton,
@@ -37,9 +37,9 @@ export default function LoginForm() {
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
-      .email('Email must be a valid email address')
-      .required('Email is required'),
-    password: Yup.string().required('Password is required')
+      .email('Correo electrónico no válido')
+      .required('Ingresa un correo electrónico'),
+    password: Yup.string().required('Ingresa una contraseña')
   });
 
   const formik = useFormik({
@@ -97,7 +97,7 @@ export default function LoginForm() {
           fullWidth
           autoComplete="username"
           type="email"
-          label="Email address"
+          label="Correo electrónico"
           {...getFieldProps('email')}
           error={
             Boolean(touched.email && errors.email) ||
@@ -114,7 +114,7 @@ export default function LoginForm() {
           fullWidth
           autoComplete="current-password"
           type={showPassword ? 'text' : 'password'}
-          label="Password"
+          label="Contraseña"
           {...getFieldProps('password')}
           InputProps={{
             endAdornment: (
@@ -149,15 +149,15 @@ export default function LoginForm() {
                 checked={values.remember}
               />
             }
-            label="Remember me"
+            label="Recordarme"
           />
 
-          <a
+          <Link
             variant="subtitle2"
             href={PATH_AUTH.resetPassword}
           >
-            Forgot password?
-          </a>
+            ¿Olvidaste la contraseña?
+          </Link>
         </Box>
 
         <LoadingButton
@@ -167,7 +167,7 @@ export default function LoginForm() {
           variant="contained"
           pending={isSubmitting}
         >
-          Login
+          Ingresar
         </LoadingButton>
       </Form>
     </FormikProvider>

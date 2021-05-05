@@ -10,7 +10,7 @@
   position: fixed;
   z-index: 9999;
   background: #00ab55;
-  box-shadow: 0 0 2px #00ab55;
+  box-shadow: 0 0 2px #00ab55; 
 }
 
 #nprogress .peg {
